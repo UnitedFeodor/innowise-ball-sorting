@@ -1,16 +1,48 @@
+import balls.AbstractBall;
+import balls.Basketball;
+import balls.Football;
+import enums.BallAttribute;
+import enums.Color;
+import enums.SortingAlgorithm;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import sorting.BallSorter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Tests {
 
     @BeforeAll
     static void before() {
-        System.out.println("before ");
+        System.out.println("before all");
     }
 
     @Test
     void test1() {
-        System.out.println("hi 1! ");
+        Football football1 = new Football(Color.WHITE,700,11);
+        Football football2 = new Football(Color.BLACK,680,12);
+        Basketball basketball1 = new Basketball(Color.WHITE,720,21);
+        //Basketball basketball2 = new Basketball(Color.WHITE,680,22);
+        // should be 11 21 12
+
+        List<AbstractBall> list = new ArrayList<>();
+        list.add(basketball1);
+        list.add(football2);
+        list.add(football1);
+
+        //list.add(basketball2);
+
+        System.out.println("before sort: " + list);
+
+        BallSorter ballSorter = new BallSorter(SortingAlgorithm.HEAP_SORT);
+        //ballSorter.setSortingAlgorithm(SortingAlgorithm.HEAP_SORT);
+
+        ballSorter.addSortingAttribute(BallAttribute.COLOR);
+        ballSorter.addSortingAttribute(BallAttribute.CIRCUMFERENCE);
+
+        System.out.println("after sort: "+ballSorter.sortBallsByAttributes(list));
+
     }
 
     @Test

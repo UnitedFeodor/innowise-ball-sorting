@@ -1,19 +1,29 @@
 package balls;
 
-import java.awt.*;
+
+import enums.Color;
+
+import java.util.Objects;
 
 public abstract class AbstractBall {
+    // TODO implement child setters and param checks in constructors etc.
+    protected Color color;
+    protected int circumferenceMM;
+    protected int massG;
 
-    private Color color;
-    private int diameterMM;
-    private int massG;
+    public  AbstractBall(){}
+    public AbstractBall(Color color, int circumferenceMM, int massG) {
+        this.color = color;
+        this.circumferenceMM = circumferenceMM;
+        this.massG = massG;
+    }
 
     public Color getColor() {
         return color;
     }
 
-    public int getDiameterMM() {
-        return diameterMM;
+    public int getCircumferenceMM() {
+        return circumferenceMM;
     }
 
     public int getMassG() {
@@ -21,6 +31,28 @@ public abstract class AbstractBall {
     }
 
     public abstract void setColor(Color newColor);
-    public abstract void setDiameterMM(int newDiameterMM);
-    public abstract void setMassG(int massG);
+    public abstract void setCircumferenceMM(int newCircumferenceMM);
+    public abstract void setMassG(int newMassG);
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AbstractBall that = (AbstractBall) o;
+        return circumferenceMM == that.circumferenceMM && massG == that.massG && color == that.color;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(color, circumferenceMM, massG);
+    }
+
+    @Override
+    public String toString() {
+        return "AbstractBall{" +
+                "color=" + color +
+                ", circumferenceMM=" + circumferenceMM +
+                ", massG=" + massG +
+                '}';
+    }
 }

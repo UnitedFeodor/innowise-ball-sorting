@@ -2,32 +2,66 @@ package sorting;
 
 import balls.AbstractBall;
 import enums.BallAttribute;
-import enums.SortType;
+import enums.SortingAlgorithm;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class BallSorter {
+    private final List<BallAttribute> sortingAttributes = new ArrayList<>();
+    private SortingAlgorithm sortingAlgorithm;
 
-    private List<BallAttribute> sortingAttributes = new ArrayList<>();
+    public BallSorter(SortingAlgorithm sortingAlgorithm) {
+        this.sortingAlgorithm = sortingAlgorithm;
+    }
 
-    private SortType sortType;
+    public BallSorter setSortingAlgorithm(SortingAlgorithm sortingAlgorithm) {
+        this.sortingAlgorithm = sortingAlgorithm;
+        return this;
+    }
+    public SortingAlgorithm getSortingAlgorithm() {
+        return sortingAlgorithm;
+    }
 
 
-    public BallSorter addAttribute(BallAttribute attribute) {
-        sortingAttributes.add(attribute);
+    public BallSorter addSortingAttribute(BallAttribute attribute) {
+        if (!sortingAttributes.contains(attribute)) {
+            sortingAttributes.add(attribute);
+        }
+        return this;
+    }
+    public List<BallAttribute> getSortingAttributes() {
+        return Collections.unmodifiableList(sortingAttributes);
+    }
+
+    public BallSorter clearSortingAttributes() {
+        sortingAttributes.clear();
         return this;
     }
 
     public List<AbstractBall> sortBallsByAttributes(List<AbstractBall> ballsToSort) {
+        if (ballsToSort == null) {
+            throw new NullPointerException("ballsToSort can't be null");
+        }
+        if (ballsToSort.isEmpty()) {
+            throw new IllegalArgumentException("ballsToSort can't be empty");
+        }
+        if (sortingAttributes.isEmpty()) {
+            return ballsToSort;
+        }
+
         List<AbstractBall> sortedList = ballsToSort;
+        List<BallAttribute> alreadySortedAttributes = new ArrayList<>();
         for(BallAttribute attribute : sortingAttributes) {
-            sortedList = sortType.sort(ballsToSort,attribute);
+            sortedList = sortingAlgorithm.sortMultifield(ballsToSort,attribute,alreadySortedAttributes);
+            alreadySortedAttributes.add(attribute);
+
+            // TODO remove debug
+            System.out.println("during sort: "+sortedList);
         }
         return sortedList;
 
     }
-
-
 
 }
