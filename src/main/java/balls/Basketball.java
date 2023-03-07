@@ -1,13 +1,14 @@
 package balls;
 
 
-import enums.Color;
+import balls.enums.Color;
 
 public class Basketball extends AbstractBall{
 
-    public Basketball() {
-        super();
-    }
+    public static final int MIN_CIRCUMFERENCE = 750;
+    public static final int MAX_CIRCUMFERENCE = 760;
+    public static final int MIN_MASS = 580;
+    public static final int MAX_MASS = 600;
 
     public Basketball(Color color, int circumferenceMM, int massG) {
         super(color, circumferenceMM, massG);
@@ -20,8 +21,8 @@ public class Basketball extends AbstractBall{
 
     @Override
     public void setCircumferenceMM(int newCircumferenceMM) {
-        if (newCircumferenceMM < 750 || newCircumferenceMM > 760) {
-
+        if (newCircumferenceMM < MIN_CIRCUMFERENCE || newCircumferenceMM > MAX_CIRCUMFERENCE) {
+            throw new IllegalArgumentException("Circumference should be in the allowed range: from " + MIN_CIRCUMFERENCE + " to " + MAX_CIRCUMFERENCE);
         } else {
             this.circumferenceMM = newCircumferenceMM;
         }
@@ -29,8 +30,8 @@ public class Basketball extends AbstractBall{
 
     @Override
     public void setMassG(int newMassG) {
-        if (newMassG < 580 || newMassG > 600) {
-
+        if (newMassG < MIN_MASS || newMassG > MAX_MASS) {
+            throw new IllegalArgumentException("Mass should be in the allowed range: from " + MIN_MASS + " to " + MAX_MASS);
         } else {
             this.massG = newMassG;
         }

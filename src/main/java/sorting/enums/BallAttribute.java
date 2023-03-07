@@ -1,7 +1,8 @@
-package enums;
+package sorting.enums;
 
 import balls.AbstractBall;
-import interfaces.MultifieldComparator;
+import balls.enums.Color;
+import sorting.interfaces.MultifieldComparator;
 
 import java.util.Comparator;
 import java.util.List;
@@ -37,7 +38,7 @@ public enum BallAttribute implements MultifieldComparator<AbstractBall,BallAttri
         }
     };
 
-    private static int checkSortedAttributesForOrder(AbstractBall o1, AbstractBall o2, List<BallAttribute> alreadySortedAttributes) {
+    private int checkSortedAttributesForOrder(AbstractBall o1, AbstractBall o2, List<BallAttribute> alreadySortedAttributes) {
         int comparisonRes = 0;
         for(BallAttribute attribute : alreadySortedAttributes) {
             comparisonRes = attribute.compare(o1, o2);

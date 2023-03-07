@@ -1,17 +1,15 @@
 package balls;
 
 
-import enums.Color;
+import balls.enums.Color;
 
 import java.util.Objects;
 
 public abstract class AbstractBall {
-    // TODO implement child setters and param checks in constructors etc.
     protected Color color;
     protected int circumferenceMM;
     protected int massG;
 
-    public  AbstractBall(){}
     public AbstractBall(Color color, int circumferenceMM, int massG) {
         this.color = color;
         this.circumferenceMM = circumferenceMM;

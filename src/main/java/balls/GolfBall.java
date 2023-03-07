@@ -1,15 +1,23 @@
 package balls;
 
 
-import enums.Color;
+import balls.enums.Color;
 
 public class GolfBall extends AbstractBall{
 
-    public GolfBall() {
-    }
+    public static final int MIN_MASS = 45;
+    public static final int MAX_MASS = 46;
+    public static final int MIN_CIRCUMFERENCE = 134;
+    public static final int MAX_CIRCUMFERENCE = 135;
 
     public GolfBall(Color color, int circumferenceMM, int massG) {
         super(color, circumferenceMM, massG);
+        if (circumferenceMM < MIN_CIRCUMFERENCE || circumferenceMM > MAX_CIRCUMFERENCE) {
+            throw new IllegalArgumentException("Circumference should be in the allowed range: from " + MIN_CIRCUMFERENCE + " to " + MAX_CIRCUMFERENCE);
+        }
+        if (massG < MIN_MASS || massG > MAX_MASS) {
+            throw new IllegalArgumentException("Mass should be in the allowed range: from " + MIN_MASS + " to " + MAX_MASS);
+        }
     }
 
     @Override
@@ -20,8 +28,8 @@ public class GolfBall extends AbstractBall{
 
     @Override
     public void setCircumferenceMM(int newCircumferenceMM) {
-        if (newCircumferenceMM < 134 || newCircumferenceMM > 135) {
-
+        if (newCircumferenceMM < MIN_CIRCUMFERENCE || newCircumferenceMM > MAX_CIRCUMFERENCE) {
+            throw new IllegalArgumentException("Circumference should be in the allowed range: from " + MIN_CIRCUMFERENCE + " to " + MAX_CIRCUMFERENCE);
         } else {
             this.circumferenceMM = newCircumferenceMM;
         }
@@ -29,8 +37,8 @@ public class GolfBall extends AbstractBall{
 
     @Override
     public void setMassG(int newMassG) {
-        if (newMassG < 45 || newMassG > 46) {
-
+        if (newMassG < MIN_MASS || newMassG > MAX_MASS) {
+            throw new IllegalArgumentException("Mass should be in the allowed range: from " + MIN_MASS + " to " + MAX_MASS);
         } else {
             this.massG = newMassG;
         }

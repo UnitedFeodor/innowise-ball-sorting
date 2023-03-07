@@ -1,8 +1,8 @@
 package sorting;
 
 import balls.AbstractBall;
-import enums.BallAttribute;
-import enums.SortingAlgorithm;
+import sorting.enums.BallAttribute;
+import sorting.interfaces.MultifieldSort;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,17 +10,17 @@ import java.util.List;
 
 public class BallSorter {
     private final List<BallAttribute> sortingAttributes = new ArrayList<>();
-    private SortingAlgorithm sortingAlgorithm;
+    private MultifieldSort<AbstractBall,BallAttribute> sortingAlgorithm;
 
-    public BallSorter(SortingAlgorithm sortingAlgorithm) {
+    public BallSorter(MultifieldSort<AbstractBall,BallAttribute> sortingAlgorithm) {
         this.sortingAlgorithm = sortingAlgorithm;
     }
 
-    public BallSorter setSortingAlgorithm(SortingAlgorithm sortingAlgorithm) {
+    public BallSorter setSortingAlgorithm(MultifieldSort<AbstractBall,BallAttribute> sortingAlgorithm) {
         this.sortingAlgorithm = sortingAlgorithm;
         return this;
     }
-    public SortingAlgorithm getSortingAlgorithm() {
+    public MultifieldSort<AbstractBall, BallAttribute> getSortingAlgorithm() {
         return sortingAlgorithm;
     }
 
@@ -54,7 +54,7 @@ public class BallSorter {
         List<AbstractBall> sortedList = ballsToSort;
         List<BallAttribute> alreadySortedAttributes = new ArrayList<>();
         for(BallAttribute attribute : sortingAttributes) {
-            sortedList = sortingAlgorithm.sortMultifield(ballsToSort,attribute,alreadySortedAttributes);
+            sortingAlgorithm.sortMultifield(sortedList,attribute,alreadySortedAttributes);
             alreadySortedAttributes.add(attribute);
 
             // TODO remove debug
