@@ -4,11 +4,12 @@ import sorting.interfaces.MultifieldComparator;
 import sorting.interfaces.MultifieldSort;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
-public class HeapSort <T,K> implements MultifieldSort<T,K> {
+public class HeapSort <T> implements MultifieldSort<T> {
     @Override
-    public void sortMultifield(List<T> listToSort, MultifieldComparator<T, K> comparator, List<K> alreadySortedAttributes) {
+    public void sortMultifield(List<T> listToSort, MultifieldComparator<T> comparator, List<Comparator<T>> alreadySortedAttributes) {
         int size = listToSort.size();
 
         // build heap (rearrange listToSort)
@@ -28,7 +29,7 @@ public class HeapSort <T,K> implements MultifieldSort<T,K> {
     }
 
     // heapify a subtree of size elements rooted with node i which is an index in tree
-    void heapify(List<T> tree, int size, int i, MultifieldComparator<T, K> comparator, List<K> alreadySortedAttributes) {
+    void heapify(List<T> tree, int size, int i, MultifieldComparator<T> comparator, List<Comparator<T>> alreadySortedAttributes) {
         // initialize max as root
         int max = i;
         int left = 2 * i + 1;

@@ -1,8 +1,9 @@
 package sorting.interfaces;
 
+import java.util.Comparator;
 import java.util.List;
 
-public interface MultifieldComparator<T,K>{
+public interface MultifieldComparator<T>{
 
     /**
      * Works like compare() from Comparator<T> but doesn't change order
@@ -23,7 +24,7 @@ public interface MultifieldComparator<T,K>{
      * 0 : o1 == o2;
      * +1 : o1 > o2;
      */
-    int compareMultifield(T o1, T o2, List<K> alreadySortedAttributes);
+    int compareMultifield(T o1, T o2, List<Comparator<T>> alreadySortedAttributes);
 
 
 }

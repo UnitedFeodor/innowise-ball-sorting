@@ -4,12 +4,13 @@ import sorting.interfaces.MultifieldComparator;
 import sorting.interfaces.MultifieldSort;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 //MergeSort<T,K extends MultifieldComparator<T,K> & Comparator<T>> implements MultifieldSort<T,K>
-public class MergeSort<T,K> implements MultifieldSort<T,K> {
+public class MergeSort<T> implements MultifieldSort<T> {
     @Override
-    public void sortMultifield(List<T> list, MultifieldComparator<T,K> comparator,List<K> alreadySortedAttributes){
+    public void sortMultifield(List<T> list, MultifieldComparator<T> comparator,List<Comparator<T>> alreadySortedAttributes){
         int size = list.size();
 
         // last sublist
@@ -29,7 +30,7 @@ public class MergeSort<T,K> implements MultifieldSort<T,K> {
         // recursively merging in order ste[ by step
         merge(L1,L2,list,comparator, alreadySortedAttributes);
     }
-    private  <T> void merge(List<T> L1, List<T> L2,List<T> L, MultifieldComparator<T,K> comparator, List<K> alreadySortedAttributes){
+    private  <T> void merge(List<T> L1, List<T> L2,List<T> L, MultifieldComparator<T> comparator, List<Comparator<T>> alreadySortedAttributes){
         int i = 0;
         int j = 0;
         int k = 0;
