@@ -36,4 +36,9 @@ public class Basketball extends AbstractBall{
             this.massG = newMassG;
         }
     }
+
+    @Override
+    public Basketball clone() {
+        return new Basketball(this.getColor(),this.getCircumferenceMM(),this.getMassG());
+    }
 }

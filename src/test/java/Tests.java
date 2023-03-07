@@ -1,6 +1,7 @@
 import balls.AbstractBall;
 import balls.Basketball;
 import balls.Football;
+import sorting.algorithms.HeapSort;
 import sorting.algorithms.MergeSort;
 import sorting.enums.BallAttribute;
 import balls.enums.Color;
@@ -32,15 +33,17 @@ public class Tests {
         list.add(football2);
         list.add(basketball2);
 
-        System.out.println("before sort: " + list);
-
         BallSorter ballSorter = new BallSorter(new MergeSort<>());
-        //ballSorter.setSortingAlgorithm(SortingAlgorithm.HEAP_SORT);
 
         ballSorter.addSortingAttribute(BallAttribute.COLOR);
         ballSorter.addSortingAttribute(BallAttribute.CIRCUMFERENCE);
+        System.out.println("before merge sort: " + list);
+        System.out.println("after merge sort: "+ ballSorter.sortBallsByAttributes(list));
 
-        System.out.println("after sort: "+ballSorter.sortBallsByAttributes(list));
+        System.out.println();
+        ballSorter.setSortingAlgorithm(new HeapSort<>());
+        System.out.println("before heap sort: " + list);
+        System.out.println("after heap sort: "+ ballSorter.sortBallsByAttributes(list));
 
     }
 

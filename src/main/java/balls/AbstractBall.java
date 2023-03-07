@@ -5,7 +5,7 @@ import balls.enums.Color;
 
 import java.util.Objects;
 
-public abstract class AbstractBall {
+public abstract class AbstractBall implements Cloneable {
     protected Color color;
     protected int circumferenceMM;
     protected int massG;
@@ -53,4 +53,7 @@ public abstract class AbstractBall {
                 ", massG=" + massG +
                 '}';
     }
+
+    @Override
+    public abstract AbstractBall clone();
 }

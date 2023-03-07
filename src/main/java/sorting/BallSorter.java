@@ -24,7 +24,6 @@ public class BallSorter {
         return sortingAlgorithm;
     }
 
-
     public BallSorter addSortingAttribute(BallAttribute attribute) {
         if (!sortingAttributes.contains(attribute)) {
             sortingAttributes.add(attribute);
@@ -51,16 +50,19 @@ public class BallSorter {
             return ballsToSort;
         }
 
-        List<AbstractBall> sortedList = ballsToSort;
+        List<AbstractBall> listCopy = new ArrayList<>();
+        for(var ball : ballsToSort) {
+            listCopy.add(ball.clone());
+        }
         List<BallAttribute> alreadySortedAttributes = new ArrayList<>();
         for(BallAttribute attribute : sortingAttributes) {
-            sortingAlgorithm.sortMultifield(sortedList,attribute,alreadySortedAttributes);
+            sortingAlgorithm.sortMultifield(listCopy,attribute,alreadySortedAttributes);
             alreadySortedAttributes.add(attribute);
 
             // TODO remove debug
-            System.out.println("during sort: "+sortedList);
+            System.out.println("during sort: "+listCopy);
         }
-        return sortedList;
+        return listCopy;
 
     }
 

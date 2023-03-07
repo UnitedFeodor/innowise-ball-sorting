@@ -35,4 +35,9 @@ public class Football extends AbstractBall{
             this.massG = newMassG;
         }
     }
+
+    @Override
+    public Football clone() {
+        return new Football(this.getColor(),this.getCircumferenceMM(),this.getMassG());
+    }
 }

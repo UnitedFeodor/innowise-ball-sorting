@@ -43,4 +43,9 @@ public class GolfBall extends AbstractBall{
             this.massG = newMassG;
         }
     }
+
+    @Override
+    public GolfBall clone() {
+        return new GolfBall(this.getColor(),this.getCircumferenceMM(),this.getMassG());
+    }
 }
