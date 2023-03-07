@@ -1,16 +1,24 @@
-package balls;
+package com.innowise.ball;
 
-import balls.enums.Color;
+import com.innowise.ball.attribute.Color;
 
 public class Football extends AbstractBall{
-
     public static final int MIN_MASS = 410;
     public static final int MAX_MASS = 420;
     public static final int MIN_CIRCUMFERENCE = 680;
     public static final int MAX_CIRCUMFERENCE = 700;
 
+
+
     public Football(Color color, int circumferenceMM, int massG) {
         super(color, circumferenceMM, massG);
+        if (circumferenceMM < MIN_CIRCUMFERENCE || circumferenceMM > MAX_CIRCUMFERENCE) {
+            throw new IllegalArgumentException("Circumference should be in the allowed range: from " + MIN_CIRCUMFERENCE + " to " + MAX_CIRCUMFERENCE);
+        }
+        if (massG < MIN_MASS || massG > MAX_MASS) {
+            throw new IllegalArgumentException("Mass should be in the allowed range: from " + MIN_MASS + " to " + MAX_MASS);
+        }
+
     }
 
     @Override
@@ -40,4 +48,6 @@ public class Football extends AbstractBall{
     public Football clone() {
         return new Football(this.getColor(),this.getCircumferenceMM(),this.getMassG());
     }
+
+
 }

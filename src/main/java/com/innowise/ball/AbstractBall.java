@@ -1,7 +1,7 @@
-package balls;
+package com.innowise.ball;
 
 
-import balls.enums.Color;
+import com.innowise.ball.attribute.Color;
 
 import java.util.Objects;
 
@@ -10,6 +10,9 @@ public abstract class AbstractBall implements Cloneable {
     protected int circumferenceMM;
     protected int massG;
 
+    public AbstractBall(){
+
+    }
     public AbstractBall(Color color, int circumferenceMM, int massG) {
         this.color = color;
         this.circumferenceMM = circumferenceMM;

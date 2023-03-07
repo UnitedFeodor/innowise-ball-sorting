@@ -1,6 +1,6 @@
-package sorting.attributes.comparators;
+package com.innowise.sorting.comparator;
 
-import balls.AbstractBall;
+import com.innowise.ball.AbstractBall;
 
 import java.util.Comparator;
 

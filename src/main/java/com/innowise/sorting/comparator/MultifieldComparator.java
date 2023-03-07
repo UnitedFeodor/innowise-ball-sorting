@@ -1,4 +1,4 @@
-package sorting.interfaces;
+package com.innowise.sorting.comparator;
 
 import java.util.Comparator;
 import java.util.List;
@@ -20,9 +20,9 @@ public interface MultifieldComparator<T>{
      * @param o2
      * @param alreadySortedAttributes
      * @return
-     * -1 : o1 < o2;
-     * 0 : o1 == o2;
-     * +1 : o1 > o2;
+     * -1 if o1 < o2;
+     * 0 if o1 == o2;
+     * +1 if o1 > o2;
      */
     int compareMultifield(T o1, T o2, List<Comparator<T>> alreadySortedAttributes);
 

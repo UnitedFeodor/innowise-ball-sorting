@@ -1,8 +1,8 @@
-package sorting;
+package com.innowise.sorting;
 
-import balls.AbstractBall;
-import sorting.interfaces.MultifieldComparator;
-import sorting.interfaces.MultifieldSort;
+import com.innowise.ball.AbstractBall;
+import com.innowise.sorting.comparator.MultifieldComparator;
+import com.innowise.sorting.algorithm.MultifieldSort;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,12 +12,20 @@ import java.util.List;
 public class BallSorter<T extends AbstractBall> {
     private final List<Comparator<T>> sortingAttributeComparators = new ArrayList<>();
     private MultifieldSort<T> sortingAlgorithm;
+
+    private boolean ascendingOrder = true;
  
     public BallSorter(MultifieldSort<T> sortingAlgorithm) {
+        if (sortingAlgorithm == null) {
+            throw new IllegalArgumentException("sortingAlgorithm can't be null");
+        }
         this.sortingAlgorithm = sortingAlgorithm;
     }
 
-    public BallSorter setSortingAlgorithm(MultifieldSort<T> sortingAlgorithm) {
+    public BallSorter<T> setSortingAlgorithm(MultifieldSort<T> sortingAlgorithm) {
+        if (sortingAlgorithm == null) {
+            throw new IllegalArgumentException("sortingAlgorithm can't be null");
+        }
         this.sortingAlgorithm = sortingAlgorithm;
         return this;
     }
@@ -25,7 +33,7 @@ public class BallSorter<T extends AbstractBall> {
         return sortingAlgorithm;
     }
 
-    public BallSorter addSortingAttribute(Comparator<T> attributeComparator) {
+    public BallSorter<T> addSortingAttribute(Comparator<T> attributeComparator) {
         if (!sortingAttributeComparators.contains(attributeComparator)) {
             sortingAttributeComparators.add(attributeComparator);
         }
@@ -35,9 +43,17 @@ public class BallSorter<T extends AbstractBall> {
         return Collections.unmodifiableList(sortingAttributeComparators);
     }
 
-    public BallSorter clearSortingAttributes() {
+    public BallSorter<T> clearSortingAttributes() {
         sortingAttributeComparators.clear();
         return this;
+    }
+
+    public boolean isAscendingOrder() {
+        return ascendingOrder;
+    }
+
+    public void setAscendingOrder(boolean ascendingOrder) {
+        this.ascendingOrder = ascendingOrder;
     }
 
     /**
@@ -47,7 +63,7 @@ public class BallSorter<T extends AbstractBall> {
      */
     public List<T> sortBallsByAttributes(List<T> ballsToSort) {
         if (ballsToSort == null) {
-            throw new NullPointerException("ballsToSort can't be null");
+            throw new IllegalArgumentException("ballsToSort can't be null");
         }
         if (ballsToSort.isEmpty()) {
             throw new IllegalArgumentException("ballsToSort can't be empty");
@@ -56,28 +72,21 @@ public class BallSorter<T extends AbstractBall> {
             return ballsToSort;
         }
 
-        /*
-        List<T> listCopy = new ArrayList<>();
-        for(var ball : ballsToSort) {
-            listCopy.add(ball.clone());
-        }*/
         List<Comparator<T>> alreadySortedAttributes = new ArrayList<>();
-        for(Comparator<T> attributeComparator : sortingAttributeComparators) {
-            MultifieldComparator<T> multifieldComparator = getMultifieldComparatorForAttribute(attributeComparator);
+        for(Comparator<T> currAttributeComparator : sortingAttributeComparators) {
+            MultifieldComparator<T> multifieldComparator = getMultifieldComparatorForAttribute(currAttributeComparator);
             sortingAlgorithm.sortMultifield(ballsToSort,multifieldComparator,alreadySortedAttributes);
-            alreadySortedAttributes.add(attributeComparator);
+            alreadySortedAttributes.add(currAttributeComparator);
 
-            // TODO remove debug
-            System.out.println("during sort: "+ballsToSort);
         }
         return ballsToSort;
     }
 
     private MultifieldComparator<T> getMultifieldComparatorForAttribute(Comparator<T> attributeComparator) {
-        return new MultifieldComparator<T>() {
+        return new MultifieldComparator<>() {
             private int checkSortedAttributesForOrder(T o1, T o2, List<Comparator<T>> alreadySortedAttributes) {
                 int comparisonRes = 0;
-                for(var attribute : alreadySortedAttributes) {
+                for (var attribute : alreadySortedAttributes) {
                     comparisonRes = attribute.compare(o1, o2);
                     if (comparisonRes != 0) {
                         return comparisonRes;
@@ -85,13 +94,19 @@ public class BallSorter<T extends AbstractBall> {
                 }
                 return comparisonRes;
             }
+
             @Override
             public int compareMultifield(T o1, T o2, List<Comparator<T>> alreadySortedAttributes) {
+                if (!ascendingOrder) { // swap the objects to reverse all comparisons
+                    T temp = o1;
+                    o1 = o2;
+                    o2 = temp;
+                }
                 int comparisonRes = checkSortedAttributesForOrder(o1, o2, alreadySortedAttributes);
                 if (comparisonRes != 0) { // they are already sorted
                     return comparisonRes;
                 } else {
-                    return attributeComparator.compare(o1,o2);
+                    return attributeComparator.compare(o1, o2);
                 }
             }
         };

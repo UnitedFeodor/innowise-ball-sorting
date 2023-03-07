@@ -1,7 +1,7 @@
-package sorting.algorithms;
+package com.innowise.sorting.algorithm.impl;
 
-import sorting.interfaces.MultifieldComparator;
-import sorting.interfaces.MultifieldSort;
+import com.innowise.sorting.algorithm.MultifieldSort;
+import com.innowise.sorting.comparator.MultifieldComparator;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -17,13 +17,13 @@ public class HeapSort <T> implements MultifieldSort<T> {
             heapify(listToSort, size, i,comparator,alreadySortedAttributes);
         }
 
-        // one by one extract an element from heapSort
+        // one by one extract an element from heap
         for (int i = size - 1; i >= 0; i--) {
 
             // move current root to the end
             Collections.swap(listToSort,0,i);
 
-            // call max heapify on the reduced heapSort
+            // call max heapify on the reduced heap
             heapify(listToSort, i, 0,comparator,alreadySortedAttributes);
         }
     }
@@ -46,7 +46,6 @@ public class HeapSort <T> implements MultifieldSort<T> {
         // if max is not root then swap
         if (max != i) {
             Collections.swap(tree,i,max);
-
             // recursively heapify the affected subtree
             heapify(tree, size, max, comparator, alreadySortedAttributes);
         }
