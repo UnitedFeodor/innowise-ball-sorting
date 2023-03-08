@@ -29,11 +29,11 @@ public class HeapSort <T> implements MultifieldSort<T> {
     }
 
     // heapify a subtree of size elements rooted with node i which is an index in tree
-    void heapify(List<T> tree, int size, int i, MultifieldComparator<T> comparator, List<Comparator<T>> alreadySortedAttributes) {
+    void heapify(List<T> tree, int size, int root, MultifieldComparator<T> comparator, List<Comparator<T>> alreadySortedAttributes) {
         // initialize max as root
-        int max = i;
-        int left = 2 * i + 1;
-        int right = 2 * i + 2;
+        int max = root;
+        int left = 2 * root + 1;
+        int right = 2 * root + 2;
 
         // if left child is larger than root
         if (left < size && comparator.compareMultifield(tree.get(left),tree.get(max),alreadySortedAttributes) > 0) {
@@ -44,8 +44,8 @@ public class HeapSort <T> implements MultifieldSort<T> {
             max = right;
         }
         // if max is not root then swap
-        if (max != i) {
-            Collections.swap(tree,i,max);
+        if (max != root) {
+            Collections.swap(tree,root,max);
             // recursively heapify the affected subtree
             heapify(tree, size, max, comparator, alreadySortedAttributes);
         }

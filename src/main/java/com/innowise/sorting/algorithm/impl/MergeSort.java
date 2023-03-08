@@ -27,26 +27,26 @@ public class MergeSort<T> implements MultifieldSort<T> {
         // recursively merging in order step by step
         merge(L1, L2, list, comparator, alreadySortedAttributes);
     }
-    private void merge(List<T> L1, List<T> L2,List<T> L, MultifieldComparator<T> comparator, List<Comparator<T>> alreadySortedAttributes){
+    private void merge(List<T> sublist1, List<T> sublist2,List<T> mergedList, MultifieldComparator<T> comparator, List<Comparator<T>> alreadySortedAttributes){
         int i = 0;
         int j = 0;
         int k = 0;
-        while (i < L1.size() && j < L2.size()) {
+        while (i < sublist1.size() && j < sublist2.size()) {
             // place the smaller of two values in result sublist
             // and move to the next value in the sublist with the selected one
-            if(comparator.compareMultifield(L1.get(i), L2.get(j), alreadySortedAttributes) < 0) {
-                L.set(k++, L1.get(i++));
+            if(comparator.compareMultifield(sublist1.get(i), sublist2.get(j), alreadySortedAttributes) < 0) {
+                mergedList.set(k++, sublist1.get(i++));
             } else {
-                L.set(k++, L2.get(j++));
+                mergedList.set(k++, sublist2.get(j++));
             }
         }
 
         // place the rest of the values in result sublist
-        while(i < L1.size()) {
-            L.set(k++, L1.get(i++));
+        while(i < sublist1.size()) {
+            mergedList.set(k++, sublist1.get(i++));
         }
-        while(j < L2.size()) {
-            L.set(k++, L2.get(j++));
+        while(j < sublist2.size()) {
+            mergedList.set(k++, sublist2.get(j++));
         }
     }
 
