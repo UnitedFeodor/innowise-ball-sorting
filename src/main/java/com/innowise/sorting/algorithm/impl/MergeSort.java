@@ -1,15 +1,14 @@
 package com.innowise.sorting.algorithm.impl;
 
-import com.innowise.sorting.algorithm.MultifieldSort;
-import com.innowise.sorting.comparator.MultifieldComparator;
+import com.innowise.sorting.algorithm.Sorter;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class MergeSort<T> implements MultifieldSort<T> {
+public class MergeSort<T> implements Sorter<T> {
     @Override
-    public void sortMultifield(List<T> list, MultifieldComparator<T> comparator, List<Comparator<T>> alreadySortedAttributes){
+    public void sort(List<T> list, Comparator<T> comparator){
         int size = list.size();
         // last sublist
         if (size < 2){
@@ -21,20 +20,20 @@ public class MergeSort<T> implements MultifieldSort<T> {
         List<T> L2 = new ArrayList<T>(list.subList(half,size));
 
         // recursively sorting each sublist
-        sortMultifield(L1, comparator, alreadySortedAttributes);
-        sortMultifield(L2, comparator, alreadySortedAttributes);
+        sort(L1, comparator);
+        sort(L2, comparator);
 
         // recursively merging in order step by step
-        merge(L1, L2, list, comparator, alreadySortedAttributes);
+        merge(L1, L2, list, comparator);
     }
-    private void merge(List<T> sublist1, List<T> sublist2,List<T> mergedList, MultifieldComparator<T> comparator, List<Comparator<T>> alreadySortedAttributes){
+    private void merge(List<T> sublist1, List<T> sublist2,List<T> mergedList, Comparator<T> comparator){
         int i = 0;
         int j = 0;
         int k = 0;
         while (i < sublist1.size() && j < sublist2.size()) {
             // place the smaller of two values in result sublist
             // and move to the next value in the sublist with the selected one
-            if(comparator.compareMultifield(sublist1.get(i), sublist2.get(j), alreadySortedAttributes) < 0) {
+            if(comparator.compare(sublist1.get(i), sublist2.get(j)) < 0) {
                 mergedList.set(k++, sublist1.get(i++));
             } else {
                 mergedList.set(k++, sublist2.get(j++));
