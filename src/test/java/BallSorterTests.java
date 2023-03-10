@@ -208,7 +208,7 @@ public class BallSorterTests {
     }
 
     @Test
-    void descendingSingleAttribute() {
+    void descendingSortSingleAttribute() {
         BallSorter<AbstractBall> ballSorter = new BallSorter<>(new MergeSort<>());
         ballSorter.addSortingAttribute(new MassComparator<>());
         ballSorter.setAscendingOrder(false);
@@ -227,7 +227,7 @@ public class BallSorterTests {
     }
 
     @Test
-    void descendingMultipleAttributes() {
+    void descendingSortMultipleAttributes() {
         BallSorter<AbstractBall> ballSorter = new BallSorter<>(new MergeSort<>());
         ballSorter.addSortingAttribute(new ColorComparator<>())
                 .addSortingAttribute(new CircumferenceComparator<>());
